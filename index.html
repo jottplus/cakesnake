@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>CakeSnake</title>
+        <meta
+            name="description"
+            content="Greedy snake eats tasty cake"
+        />
+        <meta name="viewport" content="width=device-width, user-scalable=no" />
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> 
+        <link rel="stylesheet" href="css/common.css">
+    </head>
+    <body>
+        <div id="overlay"></div>
+        <div id="help" class="modal">
+            <h2>INSTRUCTIONS</h2>
+            <div class="instruction">
+                <div class="keys"><img src="assets/keys/arrows.png" /></div>
+                <div class="function">MOVE</div>
+            </div>
+            <div class="instruction">
+                <div class="keys"><img src="assets/keys/space.png" /></div>
+                <div class="function">PAUSE/PLAY</div>
+            </div>
+            <div class="instruction">
+                <div class="keys"><img src="assets/keys/esc.webp" /></div>
+                <div class="function">RESTART</div>
+            </div>
+            <div class="instruction">
+                <div class="keys"><img src="assets/keys/h.jpg" /></div>
+                <div class="function">HELP</div>
+            </div>
+            <div class="instruction">
+                <div class="keys"><img src="assets/keys/l.png" /></div>
+                <div class="function">HIGHSCORES</div>
+            </div>
+            <div class="button confirm">OK</div>
+        </div>
+        <div id="highscores" class="modal">
+            NOBODY EVEN PLAYED
+            <div class="button confirm">OK</div>
+        </div>
+        <header>
+            <div id="title">CakeSnake</div>
+            <div id="scoreboard">0</div>
+        </header>
+        <main>
+            <canvas id="gc" width="0" height="0"></canvas>
+        </main>
+        <script src="js/resize.js"></script>
+        <script src="js/snake.js"></script>
+        <script src="js/environment.js"></script>
+        <script type="text/javascript">            
+            window.onload = function() {
+                resize();
+                initGame();
+                if (!localStorage.helpShown) showHelp();
+            }
+            window.onresize = resize;
+        </script>  
+    </body>
+</html>
