@@ -3,9 +3,12 @@
 ### Todo
 
 - no inital super cake
-- block moving inputs when modal open
+- dont change super cake position on cake hit
+- create modal opened state to block/redefine inputs
 - close modals on esc too
 - cakes and super cakes must not spawn on snake
 - drawings
 - save highscore if top ten
+- leaderboard styles
+- restart after leaderboard
 - favicon
