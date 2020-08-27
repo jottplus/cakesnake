@@ -13,38 +13,39 @@
     </head>
     <body>
         <div id="overlay"></div>
-        <div id="help" class="modal">
-            <h2>INSTRUCTIONS</h2>
-            <div class="instruction">
-                <div class="keys"><img src="assets/keys/arrows.png" /></div>
-                <div class="function">MOVE</div>
+        <div id="modal">
+            <div id="help">
+                <h2>INSTRUCTIONS</h2>
+                <div class="row">
+                    <div class="row-left keys"><img src="assets/keys/arrows.png" /></div>
+                    <div class="row-right function">MOVE</div>
+                </div>
+                <div class="row">
+                    <div class="row-left keys"><img src="assets/keys/space.png" /></div>
+                    <div class="row-right function">PAUSE/PLAY</div>
+                </div>
+                <div class="row">
+                    <div class="row-left keys"><img src="assets/keys/esc.webp" /></div>
+                    <div class="row-right function">RESTART</div>
+                </div>
+                <div class="row">
+                    <div class="row-left keys"><img src="assets/keys/h.jpg" /></div>
+                    <div class="row-right function">HELP</div>
+                </div>
+                <div class="row">
+                    <div class="row-left keys"><img src="assets/keys/l.png" /></div>
+                    <div class="row-right function">HIGHSCORES</div>
+                </div>
+                <div class="button confirm">OK</div>
             </div>
-            <div class="instruction">
-                <div class="keys"><img src="assets/keys/space.png" /></div>
-                <div class="function">PAUSE/PLAY</div>
-            </div>
-            <div class="instruction">
-                <div class="keys"><img src="assets/keys/esc.webp" /></div>
-                <div class="function">RESTART</div>
-            </div>
-            <div class="instruction">
-                <div class="keys"><img src="assets/keys/h.jpg" /></div>
-                <div class="function">HELP</div>
-            </div>
-            <div class="instruction">
-                <div class="keys"><img src="assets/keys/l.png" /></div>
-                <div class="function">HIGHSCORES</div>
-            </div>
-            <div class="button confirm">OK</div>
-        </div>
-        <div id="highscores" class="modal">
-            NOBODY EVEN PLAYED
-            <div class="button confirm">OK</div>
-        </div>
-        <div id="highscore-form" class="modal">
-            <input name="name" placeholder="Type in your name!"/>
-            <div class="button insert">OK</div>            
-        </div>
+            <div id="highscores"></div>
+            <div id="highscore-form">
+                <h2>ENTER THE HALL OF FAME</h2>
+                <input name="name" placeholder="Type in your name!"/>
+                <div class="button insert">OK</div>            
+            </div>            
+        </div>        
+        
         <header>
             <div id="title">CakeSnake</div>
             <div id="scoreboard">0</div>

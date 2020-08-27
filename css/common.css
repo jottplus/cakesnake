@@ -39,7 +39,7 @@ header #scoreboard {
 	background: black;
 	opacity: .7;
 }
-.modal {
+#modal {
 	display:none;
 	position:absolute;
 	text-align:center;
@@ -52,24 +52,43 @@ header #scoreboard {
 	border-radius: 5px;
 	padding:20px;
 }
-#help .instruction {
+#modal .row {
 	height: 50px;
 	width: 100%;
 }
-#help .instruction .keys {
+#modal .row .row-left {
 	float:left;
 	width:50%;
+	line-height: 45px;
 }
-#help .instruction .function {
+#modal .row .row-right {
 	float:left;
 	width:50%;
 	height:100%;
-	line-height: 50px;
+	line-height: 45px;
 }
-#help .instruction .keys img {
-	height: 40px;
+#modal .row .row-left img {
+	height: 30px;
 }
-.modal .button {
+#help {
+	display: none;
+}
+#modal #highscores .row {
+	height: 30px;
+}
+#modal #highscores .row .row-right {
+	line-height: 30px;
+}
+#modal #highscores .row .row-left {
+	line-height: 30px;
+}
+#highscores {
+	display: none;
+}
+#highscore-form {
+	display: none;
+}
+#modal .button {
 	position:absolute;
 	width:90%;
 	left: 5%;

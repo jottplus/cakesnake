@@ -1,10 +1,11 @@
 const overlay = document.getElementById('overlay')
+const modal = document.getElementById('modal')
 const help = document.getElementById('help')
 const form = document.getElementById('highscore-form')
 const highscore = document.getElementById('highscores')
 
 const confirmHelpBtn = document.querySelector('#help .confirm')
-const confirmHighscoresBtn = document.querySelector('#highscores .confirm')
+let confirmHighscoresBtn = document.querySelector('#highscores .confirm')
 const insertHighscoreBtn = document.querySelector('#highscore-form .insert')
 
 const helpButtonClick = function(event) {
@@ -23,38 +24,35 @@ const highscoreButtonClick = function(event) {
     event.preventDefault()
     hideHighscores()
 }
-function toggleElement(element, state)
+
+function toggleElements(elements, state)
 {
-    element.style.display = state
+    elements.forEach(element => element.style.display = state)
 }
 
 function showHelp()
 {   
-	if (!isGamePaused) togglePause() 
-    toggleElement(overlay, 'block')
-    toggleElement(help, 'block')
+    if (!isGamePaused) togglePause() 
+    toggleElements([overlay, modal, help], 'block')
     confirmHelpBtn.addEventListener('click', helpButtonClick, false)
 }
 
 function hideHelp()
 {
     localStorage.helpShown = true
-    toggleElement(overlay, 'none')
-    toggleElement(help, 'none')
+    toggleElements([overlay, modal, help], 'none')
     confirmHelpBtn.removeEventListener('click', helpButtonClick, false)
 }
 
 function showForm()
 {
-    toggleElement(overlay, 'block')
-    toggleElement(form, 'block')
+    toggleElements([overlay, modal, form], 'block')
     insertHighscoreBtn.addEventListener('click', insertHighscore, false)
 }
 
 function hideForm()
 {
-    toggleElement(overlay, 'none')
-    toggleElement(form, 'none')
+    toggleElements([overlay, modal, form], 'none')
     insertHighscoreBtn.removeEventListener('click', insertHighscore, false)
 }
 
@@ -66,9 +64,8 @@ function showHighscores()
 
 function hideHighscores()
 {
-    toggleElement(overlay, 'none')
-    highscore.style.display = 'none';
-    confirmHighscoresBtn.removeEventListener('click', highscoreButtonClick, false);
+    confirmHighscoresBtn.removeEventListener('click', highscoreButtonClick, false)
+    toggleElements([overlay, modal, highscore], 'none')
 }
 
 function sortHighscores(highscoreString)
@@ -79,14 +76,15 @@ function sortHighscores(highscoreString)
 
 function displayHighscore()
 {
-    toggleElement(overlay, 'block')
-    toggleElement(highscore, 'block')
-    let highscoreContent = ''
+    toggleElements([overlay, modal, highscore], 'block')
+    let highscoreContent = '<h2>HIGHSCORES</h2>'
     for (let score of highscores) {
-        highscoreContent += '<div class="instruction"><div class="name">'+score.name+'</div><div class="score">'+score.score+'</div></div>';
+        highscoreContent += '<div class="row"><div class="row-left">'+score.name+'</div><div class="row-right">'+score.score+'</div></div>'
     }
+    highscoreContent += '<div class="button confirm">OK</div>'
     highscore.innerHTML = highscoreContent;
-    confirmHighscoresBtn.addEventListener('click', highscoreButtonClick, false);
+    confirmHighscoresBtn = document.querySelector('#highscores .confirm')
+    confirmHighscoresBtn.addEventListener('click', highscoreButtonClick, false)
 }
 
 function getHighscores(callback)
