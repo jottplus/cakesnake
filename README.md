@@ -8,7 +8,6 @@
 - close modals on esc too
 - cakes and super cakes must not spawn on snake
 - drawings
-- save highscore if top ten
 - leaderboard styles
 - restart after leaderboard
 - favicon
