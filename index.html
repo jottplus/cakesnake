@@ -41,6 +41,10 @@
             NOBODY EVEN PLAYED
             <div class="button confirm">OK</div>
         </div>
+        <div id="highscore-form" class="modal">
+            <input name="name" placeholder="Type in your name!"/>
+            <div class="button insert">OK</div>            
+        </div>
         <header>
             <div id="title">CakeSnake</div>
             <div id="scoreboard">0</div>
@@ -55,6 +59,7 @@
             window.onload = function() {
                 resize();
                 initGame();
+                getHighscores();
                 if (!localStorage.helpShown) showHelp();
             }
             window.onresize = resize;

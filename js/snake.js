@@ -21,6 +21,7 @@ let tileCountY = 0
 let tileSize = 0
 
 // game
+let highscores = []
 let score = 0
 let isGameOver = false
 let isGameStarted = false
@@ -204,8 +205,19 @@ function restart()
 
 function gameOver() 
 {
-    clearInterval(interval);
-    isGameOver = true;
+    clearInterval(interval)  
+    isGameOver = true
+    getHighscores(function(){
+        let min = Number.POSITIVE_INFINITY;
+        let tmp = null
+        for (let score of highscores) {
+            tmp = score.score
+            if (tmp < min) min = tmp
+        }
+        if (highscores.length < 10) showForm()
+        else if (score > min) showForm()
+        else showHighscores()
+    })    
 }
 
 function handleControls(evt) 
@@ -239,8 +251,9 @@ function handleControls(evt)
             break;
         case 76: // l key
             // TODO Highscores
-            const highscores = document.getElementById('highscores')
-            if (!highscores.style.display || highscores.style.display === 'none') showHighscores();
+            console.log(highscores)
+            const modal = document.getElementById('highscores')
+            if (!modal.style.display || modal.style.display === 'none') showHighscores();
             else hideHighscores();
             break;
     }
