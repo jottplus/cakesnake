@@ -8,6 +8,6 @@
 - close modals on esc too
 - cakes and super cakes must not spawn on snake
 - drawings
-- leaderboard styles
 - restart after leaderboard
 - favicon
+- styling
