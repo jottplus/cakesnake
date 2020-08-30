@@ -32,8 +32,9 @@ function toggleElements(elements, state)
 
 function showHelp()
 {   
-    if (!isGamePaused) togglePause() 
+    if (!isGamePaused) togglePause()     
     toggleElements([overlay, modal, help], 'block')
+    isModal = 'help'
     confirmHelpBtn.addEventListener('click', helpButtonClick, false)
 }
 
@@ -41,31 +42,36 @@ function hideHelp()
 {
     localStorage.helpShown = true
     toggleElements([overlay, modal, help], 'none')
+    isModal = false
     confirmHelpBtn.removeEventListener('click', helpButtonClick, false)
 }
 
 function showForm()
 {
     toggleElements([overlay, modal, form], 'block')
+    isModal = 'form'
     insertHighscoreBtn.addEventListener('click', insertHighscore, false)
 }
 
 function hideForm()
 {
     toggleElements([overlay, modal, form], 'none')
+    isModal = false
     insertHighscoreBtn.removeEventListener('click', insertHighscore, false)
 }
 
 function showHighscores()
 {
     if (!isGamePaused) togglePause()
+    isModal = 'highscores'
     getHighscores(displayHighscore)
 }
 
 function hideHighscores()
 {
-    confirmHighscoresBtn.removeEventListener('click', highscoreButtonClick, false)
     toggleElements([overlay, modal, highscore], 'none')
+    isModal = false
+    confirmHighscoresBtn.removeEventListener('click', highscoreButtonClick, false)    
 }
 
 function sortHighscores(highscoreString)
@@ -101,6 +107,7 @@ function insert(score, name)
     ajaxRequest('POST', 'http://cakesnake.jottplus.de/data/insertHighscore.php'+data, function(response) {
         highscores = sortHighscores(response)
         hideForm()
+        isModal = 'highscores'
         displayHighscore()
     })
 }

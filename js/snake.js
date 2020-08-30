@@ -26,6 +26,7 @@ let score = 0
 let isGameOver = false
 let isGameStarted = false
 let isGamePaused = false
+let isModal = false
 let interval = false
 
 // snake
@@ -226,37 +227,55 @@ function handleControls(evt)
     if (!isGameStarted && [37,38,39,40].includes(evt.keyCode)) isGameStarted = true
 
     switch(evt.keyCode) {
-        case 27: // esc key
-            restart();
-            break;
-        case 32: // space key
-            isGameOver ? restart() : togglePause();
-            break;
+        case 13: handleEnterKey(); break
+        case 27: handleEscKey(); break
+        case 32: handleSpaceKey(); break
         case 37: // left key
-            move(-1, 0)                         
-            break;
+            if (!isModal) move(-1, 0)                         
+            break
         case 38: // up key
-            move(0, -1)
-            break;
+            if (!isModal) move(0, -1)
+            break
         case 39: // right key
-            move(1, 0)   
-            break;
+            if (!isModal) move(1, 0)   
+            break
         case 40: // down key
-            move(0, 1)
-            break;
-        case 72: // h key
-            const help = document.getElementById('help')
-            if (!help.style.display || help.style.display === 'none') showHelp();
-            else hideHelp();
-            break;
-        case 76: // l key
-            // TODO Highscores
-            console.log(highscores)
-            const modal = document.getElementById('highscores')
-            if (!modal.style.display || modal.style.display === 'none') showHighscores();
-            else hideHighscores();
-            break;
+            if (!isModal) move(0, 1)
+            break
+        case 72: handleHKey(); break            
+        case 76: handleLKey(); break            
     }
+}
+
+function handleEnterKey() {
+    if (isModal === 'form') {
+        const value = document.querySelector('#highscore-form input[name="name"]').value
+        if (value) insert(score, value)
+        else alert('Insert name!')
+    }
+}
+
+function handleEscKey() {
+    if (isModal === 'help') hideHelp()
+    else if (isModal === 'form') hideForm()
+    else if (isModal === 'highscores') hideHighscores()
+    else restart()
+}
+
+function handleSpaceKey() {
+    if (!isModal) {
+        isGameOver ? restart() : togglePause();
+    }
+}
+
+function handleHKey() {
+    if (!isModal) showHelp()
+    else if(isModal === 'help') hideHelp()
+}
+
+function handleLKey() {
+    if (!isModal) showHighscores()
+    else if (isModal === 'highscores') hideHighscores()
 }
 
 function updateScore(multiply) 
