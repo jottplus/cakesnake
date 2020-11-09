@@ -174,10 +174,18 @@ function handleSuperCakeHit()
 
 function move(x, y)
 {
+    let changed = false;
     if (!isGamePaused) {
-        if (xValue*(-1) !== x) xValue = x
-        if (yValue*(-1) !== y) yValue = y                
+        if (xValue*(-1) !== x) {
+            xValue = x
+            changed = true
+        }
+        if (yValue*(-1) !== y) {
+            yValue = y
+            changed = true
+        }    
     }
+    return changed
 }
 
 /* VIEW */
@@ -234,26 +242,22 @@ function handleControls(evt)
         case 32: handleSpaceKey(); break
         case 37: // left key
             if (!isModal) {
-                move(-1, 0)
-                IMAGE_SNAKE.src = "./assets/snakeheads/snakehead_left.png" 
+                if (move(-1, 0)) IMAGE_SNAKE.src = "./assets/snakeheads/snakehead_left.png" 
             }             
             break
         case 38: // up key
             if (!isModal) {
-                move(0, -1)
-                IMAGE_SNAKE.src = "./assets/snakeheads/snakehead_up.png" 
+                if (move(0, -1)) IMAGE_SNAKE.src = "./assets/snakeheads/snakehead_up.png" 
             }
             break
         case 39: // right key
             if (!isModal) {
-                move(1, 0)
-                IMAGE_SNAKE.src = "./assets/snakeheads/snakehead_right.png" 
+                if (move(1, 0)) IMAGE_SNAKE.src = "./assets/snakeheads/snakehead_right.png" 
             }
             break
         case 40: // down key
             if (!isModal) {
-                move(0, 1)
-                IMAGE_SNAKE.src = "./assets/snakeheads/snakehead_down.png" 
+                if (move(0, 1)) IMAGE_SNAKE.src = "./assets/snakeheads/snakehead_down.png" 
             }
             break
         case 72: handleHKey(); break            
