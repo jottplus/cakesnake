@@ -8,12 +8,14 @@ const SNAKE_COLOUR = 'rgb(140, 191, 178)'
 
 const CONTEXT = CANVAS.getContext('2d')
 const IMAGE_CAKE = new Image()
+const IMAGE_SUPER_CAKE = new Image()
 const IMAGE_SNAKE = new Image()
 IMAGE_CAKE.src = "./assets/cake.png"
-IMAGE_SNAKE.src = "./assets/snakehead.jpg"
+IMAGE_SUPER_CAKE.src = "./assets/supercake.png" 
+IMAGE_SNAKE.src = "./assets/snakeheads/snakehead_up.png"
 const IMAGE_CAKE_SIZE = 256
+const IMAGE_SUPER_CAKE_SIZE = 512
 const IMAGE_SNAKE_SIZE = 800
-
 
 /* GLOBALS */
 // tile sizing
@@ -187,9 +189,9 @@ function drawBackground()
 }
 
 function drawCakes()
-{      
+{
     drawImage(IMAGE_CAKE, IMAGE_CAKE_SIZE, cakeX, cakeY)
-    if (isSuperCake) drawImage(IMAGE_CAKE, IMAGE_CAKE_SIZE, superCakeX, superCakeY) // draw super cake
+    if (isSuperCake) drawImage(IMAGE_SUPER_CAKE, IMAGE_SUPER_CAKE_SIZE, superCakeX, superCakeY) // draw super cake
 }
 
 function drawImage(image, size, x, y)
@@ -231,16 +233,28 @@ function handleControls(evt)
         case 27: handleEscKey(); break
         case 32: handleSpaceKey(); break
         case 37: // left key
-            if (!isModal) move(-1, 0)                         
+            if (!isModal) {
+                move(-1, 0)
+                IMAGE_SNAKE.src = "./assets/snakeheads/snakehead_left.png" 
+            }             
             break
         case 38: // up key
-            if (!isModal) move(0, -1)
+            if (!isModal) {
+                move(0, -1)
+                IMAGE_SNAKE.src = "./assets/snakeheads/snakehead_up.png" 
+            }
             break
         case 39: // right key
-            if (!isModal) move(1, 0)   
+            if (!isModal) {
+                move(1, 0)
+                IMAGE_SNAKE.src = "./assets/snakeheads/snakehead_right.png" 
+            }
             break
         case 40: // down key
-            if (!isModal) move(0, 1)
+            if (!isModal) {
+                move(0, 1)
+                IMAGE_SNAKE.src = "./assets/snakeheads/snakehead_down.png" 
+            }
             break
         case 72: handleHKey(); break            
         case 76: handleLKey(); break            
