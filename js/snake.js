@@ -156,7 +156,7 @@ function handleCakeHit()
     cakeX = Math.floor(Math.random()*TILE_COUNT_X);
     cakeY = Math.floor(Math.random()*tileCountY);
     
-    if (Math.random() >= 0.9) { // add super cake (10% chance)
+    if (Math.random() >= 0.9 && !isSuperCake) { // add super cake (10% chance)
         isSuperCake = true
         // TODO: check if cake or snake position
         superCakeX = Math.floor(Math.random()*TILE_COUNT_X);
