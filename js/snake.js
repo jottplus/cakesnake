@@ -150,19 +150,28 @@ function checkHits()
 // eat cake
 function handleCakeHit()
 {    
-    snakeLength++;
+    snakeLength++
     updateScore(1)
 
-    // new cake position
-    cakeX = Math.floor(Math.random()*TILE_COUNT_X);
-    cakeY = Math.floor(Math.random()*tileCountY);
+    // new cake position    
+    const newCakePos = calculateCakePos()
+    cakeX = newCakePos.x
+    cakeY = newCakePos.y
     
     if (Math.random() >= 0.9 && !isSuperCake) { // add super cake (10% chance)
-        isSuperCake = true
-        // TODO: check if cake or snake position
-        superCakeX = Math.floor(Math.random()*TILE_COUNT_X);
-        superCakeY = Math.floor(Math.random()*tileCountY);
+        isSuperCake = true        
+        const newSuperCakePos = calculateCakePos()
+        superCakeX = newSuperCakePos.x
+        superCakeY = newSuperCakePos.y
     }       
+}
+
+function calculateCakePos() {
+    do {
+        x = Math.floor(Math.random()*TILE_COUNT_X)
+        y = Math.floor(Math.random()*tileCountY)
+    } while (snake.find((s) => s.x === x && s.y === y )) // check if cake or snake position
+    return {x: x, y: y}
 }
 
 // eat super cake
