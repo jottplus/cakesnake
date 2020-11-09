@@ -60,6 +60,7 @@ function initGame()
     isGameStarted = false
     isGameOver = false
     isGamePaused = true    
+    isSuperCake = false
 
     updateScore(0) // reset score
     xValue = yValue = 0
