@@ -2,8 +2,8 @@
 const INITAL_SNAKE_LENGTH = 5
 const CAKE_VALUE = 50
 
-const CANVAS_COLOUR = 'white'
-const SNAKE_COLOUR = 'rgb(140, 191, 178)'
+const CANVAS_COLOUR = 'rgb(44, 40, 40)'
+const SNAKE_COLOUR = 'rgb(33, 152, 151)'
 //const CAKE_COLOUR = 'rgb(204, 153, 195)'
 
 const CONTEXT = CANVAS.getContext('2d')
@@ -11,7 +11,7 @@ const IMAGE_CAKE = new Image()
 const IMAGE_SUPER_CAKE = new Image()
 const IMAGE_SNAKE = new Image()
 IMAGE_CAKE.src = "./assets/cake.png"
-IMAGE_SUPER_CAKE.src = "./assets/supercake.png" 
+IMAGE_SUPER_CAKE.src = "./assets/supercake.png"
 IMAGE_SNAKE.src = "./assets/snakeheads/snakehead_up.png"
 const IMAGE_CAKE_SIZE = 256
 const IMAGE_SUPER_CAKE_SIZE = 512
@@ -48,108 +48,101 @@ let cakeX = 0
 let cakeY = 0
 
 // super cake
-let isSuperCake = false  
+let isSuperCake = false
 let superCakeX = 0
 let superCakeY = 0
 
 document.addEventListener('keydown', handleControls);
 
 /* INIT */
-function initGame() 
-{ 
+function initGame() {
     isGameStarted = false
     isGameOver = false
-    isGamePaused = true    
+    isGamePaused = true
     isSuperCake = false
 
     updateScore(0) // reset score
     xValue = yValue = 0
 
     snake = []
-    snakeLength = INITAL_SNAKE_LENGTH            
+    snakeLength = INITAL_SNAKE_LENGTH
 
     // randomly place snake
-    snakeHeadX = Math.floor(Math.random()*TILE_COUNT_X)
-    snakeHeadY = Math.floor(Math.random()*tileCountY)   
+    snakeHeadX = Math.floor(Math.random() * TILE_COUNT_X)
+    snakeHeadY = Math.floor(Math.random() * tileCountY)
 
     // place inital cake - dont hit snake
     do {
-        cakeX = Math.floor(Math.random()*TILE_COUNT_X)
-        cakeY = Math.floor(Math.random()*tileCountY)
-    } while (snakeHeadX !== cakeX && snakeHeadY !== cakeY)  
+        cakeX = Math.floor(Math.random() * TILE_COUNT_X)
+        cakeY = Math.floor(Math.random() * tileCountY)
+    } while (snakeHeadX !== cakeX && snakeHeadY !== cakeY)
 
     superCakeX = superCakeY = 0 // init super cake position    
-    
+
     togglePause()
 }
 
 /* GAMEPLAY */
 // (un)pause game
-function togglePause() 
-{
-    if (isGamePaused) interval = setInterval(game, 1000/15);
+function togglePause() {
+    if (isGamePaused) interval = setInterval(game, 1000 / 15);
     else clearInterval(interval);
-    isGamePaused = !isGamePaused    
+    isGamePaused = !isGamePaused
 }
 
 // game procedure
-function game() 
-{
+function game() {
     moveSnake()
     drawBackground()
     updateSnake()
     checkHits()
-    drawCakes()     
+    drawCakes()
 }
 
 // update snake position
-function moveSnake() 
-{
+function moveSnake() {
     // update snake head position
     snakeHeadX += xValue;
-    snakeHeadY += yValue;  
+    snakeHeadY += yValue;
 
     // no borders!
-    if (snakeHeadX < 0) snakeHeadX = TILE_COUNT_X-1;
-    if (snakeHeadX > TILE_COUNT_X-1) snakeHeadX = 0;
-    if (snakeHeadY < 0) snakeHeadY = tileCountY-1;
-    if (snakeHeadY > tileCountY-1) snakeHeadY = 0;
+    if (snakeHeadX < 0) snakeHeadX = TILE_COUNT_X - 1;
+    if (snakeHeadX > TILE_COUNT_X - 1) snakeHeadX = 0;
+    if (snakeHeadY < 0) snakeHeadY = tileCountY - 1;
+    if (snakeHeadY > tileCountY - 1) snakeHeadY = 0;
 }
 
 // update whole snake 
-function updateSnake()
-{
+function updateSnake() {
     // draw snake
     CONTEXT.fillStyle = SNAKE_COLOUR;
-    let ix = 0;         
+    let ix = 0;
     for (var i = 0; i < snake.length; i++) {
 
-        if (ix === snake.length-1) drawImage(IMAGE_SNAKE, IMAGE_SNAKE_SIZE, snake[i].x, snake[i].y) // draw head of snake
-        else CONTEXT.fillRect(snake[i].x*tileSize, snake[i].y*tileSize, tileSize-2, tileSize-2);
-        
+        if (ix === snake.length - 1) drawImage(IMAGE_SNAKE, IMAGE_SNAKE_SIZE, snake[i].x, snake[i].y) // draw head of snake
+        else CONTEXT.fillRect(snake[i].x * tileSize, snake[i].y * tileSize, tileSize - 2, tileSize - 2);
+
         // check snake hit
         if (snake[i].x == snakeHeadX && snake[i].y == snakeHeadY && isGameStarted) gameOver();
-        ix++            
+        ix++
     }
 
     // push new position to snake and remove oldest
-    snake.push({x: snakeHeadX, y: snakeHeadY});
-    while (snake.length > snakeLength) snake.shift();    
+    snake.push({ x: snakeHeadX, y: snakeHeadY });
+    while (snake.length > snakeLength) snake.shift();
 }
 
 // check if cakes are found
-function checkHits()
-{
+function checkHits() {
     if (superCakeX == snakeHeadX && superCakeY == snakeHeadY) // super cake hit
-        handleSuperCakeHit(); 
+        handleSuperCakeHit();
 
     if (cakeX == snakeHeadX && cakeY == snakeHeadY) // cake hit
-        handleCakeHit(); 
+        handleCakeHit();
 }
 
 // eat cake
-function handleCakeHit()
-{    
+function handleCakeHit() {
     snakeLength++
     updateScore(1)
 
@@ -157,78 +150,71 @@ function handleCakeHit()
     const newCakePos = calculateCakePos()
     cakeX = newCakePos.x
     cakeY = newCakePos.y
-    
+
     if (Math.random() >= 0.9 && !isSuperCake) { // add super cake (10% chance)
-        isSuperCake = true        
+        isSuperCake = true
         const newSuperCakePos = calculateCakePos()
         superCakeX = newSuperCakePos.x
         superCakeY = newSuperCakePos.y
-    }       
+    }
 }
 
 function calculateCakePos() {
     do {
-        x = Math.floor(Math.random()*TILE_COUNT_X)
-        y = Math.floor(Math.random()*tileCountY)
-    } while (snake.find((s) => s.x === x && s.y === y )) // check if cake or snake position
-    return {x: x, y: y}
+        x = Math.floor(Math.random() * TILE_COUNT_X)
+        y = Math.floor(Math.random() * tileCountY)
+    } while (snake.find((s) => s.x === x && s.y === y)) // check if cake or snake position
+    return { x: x, y: y }
 }
 
 // eat super cake
-function handleSuperCakeHit()
-{
-    snakeLength+3;
+function handleSuperCakeHit() {
+    snakeLength + 3;
     updateScore(3)
     isSuperCake = false
 }
 
-function move(x, y)
-{
+function move(x, y) {
     let changed = false;
     if (!isGamePaused) {
-        if (xValue*(-1) !== x) {
+        if (xValue * (-1) !== x) {
             xValue = x
             changed = true
         }
-        if (yValue*(-1) !== y) {
+        if (yValue * (-1) !== y) {
             yValue = y
             changed = true
-        }    
+        }
     }
     return changed
 }
 
 /* VIEW */
 // colour whole background before adding items
-function drawBackground() 
-{    
+function drawBackground() {
     CONTEXT.fillStyle = CANVAS_COLOUR;
     CONTEXT.fillRect(0, 0, CANVAS.width, CANVAS.height);
 }
 
-function drawCakes()
-{
+function drawCakes() {
     drawImage(IMAGE_CAKE, IMAGE_CAKE_SIZE, cakeX, cakeY)
     if (isSuperCake) drawImage(IMAGE_SUPER_CAKE, IMAGE_SUPER_CAKE_SIZE, superCakeX, superCakeY) // draw super cake
 }
 
-function drawImage(image, size, x, y)
-{
-    CONTEXT.drawImage(image, 0, 0, size, size, x*tileSize, y*tileSize, tileSize, tileSize)
+function drawImage(image, size, x, y) {
+    CONTEXT.drawImage(image, 0, 0, size, size, x * tileSize, y * tileSize, tileSize, tileSize)
 }
 
 /* ENGINE */
-function restart() 
-{
+function restart() {
     clearInterval(interval);
     initGame();
 }
 
-function gameOver() 
-{
-    clearInterval(interval)  
+function gameOver() {
+    clearInterval(interval)
     isGameOver = true
-    getHighscores(function(){
+    getHighscores(function () {
         let min = Number.POSITIVE_INFINITY;
         let tmp = null
         for (let score of highscores) {
@@ -238,40 +224,39 @@ function gameOver()
         if (highscores.length < 10) showForm()
         else if (score > min) showForm()
         else showHighscores()
-    })    
+    })
 }
 
-function handleControls(evt) 
-{
+function handleControls(evt) {
     // first arrow keys starts game
-    if (!isGameStarted && [37,38,39,40].includes(evt.keyCode)) isGameStarted = true
+    if (!isGameStarted && [37, 38, 39, 40].includes(evt.keyCode)) isGameStarted = true
 
-    switch(evt.keyCode) {
+    switch (evt.keyCode) {
         case 13: handleEnterKey(); break
         case 27: handleEscKey(); break
         case 32: handleSpaceKey(); break
         case 37: // left key
             if (!isModal) {
-                if (move(-1, 0)) IMAGE_SNAKE.src = "./assets/snakeheads/snakehead_left.png" 
-            }             
+                if (move(-1, 0)) IMAGE_SNAKE.src = "./assets/snakeheads/snakehead_left.png"
+            }
             break
         case 38: // up key
             if (!isModal) {
-                if (move(0, -1)) IMAGE_SNAKE.src = "./assets/snakeheads/snakehead_up.png" 
+                if (move(0, -1)) IMAGE_SNAKE.src = "./assets/snakeheads/snakehead_up.png"
             }
             break
         case 39: // right key
             if (!isModal) {
-                if (move(1, 0)) IMAGE_SNAKE.src = "./assets/snakeheads/snakehead_right.png" 
+                if (move(1, 0)) IMAGE_SNAKE.src = "./assets/snakeheads/snakehead_right.png"
             }
             break
         case 40: // down key
             if (!isModal) {
-                if (move(0, 1)) IMAGE_SNAKE.src = "./assets/snakeheads/snakehead_down.png" 
+                if (move(0, 1)) IMAGE_SNAKE.src = "./assets/snakeheads/snakehead_down.png"
             }
             break
-        case 72: handleHKey(); break            
-        case 76: handleLKey(); break            
+        case 72: handleHKey(); break
+        case 76: handleLKey(); break
     }
 }
 
@@ -298,7 +283,7 @@ function handleSpaceKey() {
 
 function handleHKey() {
     if (!isModal) showHelp()
-    else if(isModal === 'help') hideHelp()
+    else if (isModal === 'help') hideHelp()
 }
 
 function handleLKey() {
@@ -306,8 +291,7 @@ function handleLKey() {
     else if (isModal === 'highscores') hideHighscores()
 }
 
-function updateScore(multiply) 
-{
+function updateScore(multiply) {
     if (multiply === 0) score = 0
     else score += CAKE_VALUE * multiply
     document.getElementById('scoreboard').innerHTML = score;

@@ -1,75 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>CakeSnake</title>
-        <meta
-            name="description"
-            content="Greedy snake eats tasty cake"
-        />
-        <meta name="viewport" content="width=device-width, user-scalable=no" />
-        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> 
-        <link rel="stylesheet" href="css/common.css">
-        <link rel="icon" href="favicon.png">
-    </head>
-    <body>
-        <div id="overlay"></div>
-        <div id="modal">
-            <div id="help">
-                <h2>INSTRUCTIONS</h2>
-                <div class="row">
-                    <div class="row-left keys">
-                        <img src="assets/keys/left.png" />
-                        <img src="assets/keys/up.png" />
-                        <img src="assets/keys/right.png" />
-                        <img src="assets/keys/down.png" />
-                    </div>
-                    <div class="row-right function">MOVE</div>
-                </div>
-                <div class="row">
-                    <div class="row-left keys"><img src="assets/keys/space.png" /></div>
-                    <div class="row-right function">PAUSE/PLAY</div>
-                </div>
-                <div class="row">
-                    <div class="row-left keys"><img src="assets/keys/esc.png" /></div>
-                    <div class="row-right function">RESTART</div>
-                </div>
-                <div class="row">
-                    <div class="row-left keys"><img src="assets/keys/h.png" /></div>
-                    <div class="row-right function">HELP</div>
-                </div>
-                <div class="row">
-                    <div class="row-left keys"><img src="assets/keys/l.png" /></div>
-                    <div class="row-right function">HIGHSCORES</div>
-                </div>
-                <div class="button confirm">OK</div>
+
+<head>
+    <meta charset="utf-8" />
+    <title>CakeSnake</title>
+    <meta name="description" content="Greedy snake eats tasty cake" />
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="icon" href="favicon.png">
+</head>
+
+<body>
+    <div id="overlay"></div>
+    <div id="modal">
+        <div id="help">
+            <h2>INSTRUCTIONS</h2>
+            <div class="row">
+                <div class="row-left keys">ARROW KEYS</div>
+                <div class="row-right function">MOVE</div>
             </div>
-            <div id="highscores"></div>
-            <div id="highscore-form">
-                <h2>ENTER THE HALL OF FAME</h2>
-                <input name="name" placeholder="Type in your name!"/>
-                <div class="button insert">OK</div>            
-            </div>            
-        </div>        
-        
-        <header>
-            <div id="title">CakeSnake</div>
-            <div id="scoreboard">0</div>
-        </header>
-        <main>
-            <canvas id="gc" width="0" height="0"></canvas>
-        </main>
-        <script src="js/resize.js"></script>
-        <script src="js/snake.js"></script>
-        <script src="js/environment.js"></script>
-        <script type="text/javascript">            
-            window.onload = function() {
-                resize();
-                initGame();
-                getHighscores();
-                if (!localStorage.helpShown) showHelp();
-            }
-            window.onresize = resize;
-        </script>  
-    </body>
+            <div class="row">
+                <div class="row-left keys">SPACE</div>
+                <div class="row-right function">PAUSE/PLAY</div>
+            </div>
+            <div class="row">
+                <div class="row-left keys">ESC</div>
+                <div class="row-right function">RESTART</div>
+            </div>
+            <div class="row">
+                <div class="row-left keys">H</div>
+                <div class="row-right function">HELP</div>
+            </div>
+            <div class="row">
+                <div class="row-left keys">L</div>
+                <div class="row-right function">HIGHSCORES</div>
+            </div>
+            <div class="button confirm">OK</div>
+        </div>
+        <div id="highscores"></div>
+        <div id="highscore-form">
+            <h2>ENTER THE HALL OF FAME</h2>
+            <input name="name" placeholder="Type in your name!" />
+            <div class="button insert">OK</div>
+        </div>
+    </div>
+
+    <header>
+        <div id="title">CakeSnake</div>
+        <div id="scoreboard">0</div>
+    </header>
+    <main>
+        <canvas id="gc" width="0" height="0"></canvas>
+    </main>
+    <script src="js/resize.js"></script>
+    <script src="js/snake.js"></script>
+    <script src="js/environment.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            resize();
+            initGame();
+            getHighscores();
+            if (!localStorage.helpShown) showHelp();
+        }
+        window.onresize = resize;
+    </script>
+</body>
+
 </html>
