@@ -97,19 +97,19 @@ function insert(score, name) {
 
     if (highscores.length < 10) {
         highscores.push({ name, score });
-        localStorage.setItem('highscores', JSON.stringify(highscores));
     } else if (highscores.length == 10 && highscores.slice(-1)[0].score < score) {
         highscores.pop();
         highscores.push({ name, score });
     }
 
+    localStorage.setItem('highscores', JSON.stringify(highscores));
     hideForm();
     isModal = 'highscores';
     displayHighscore();
 }
 
 function sortHighscores() {
-    highscores.sort((a, b) => {
+    highscores = highscores.sort((a, b) => {
         if (a.score < b.score) return 1
         if (a.score > b.score) return -1
         return 0;
