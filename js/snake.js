@@ -1,22 +1,3 @@
-/* CONSTANTS */
-const INITAL_SNAKE_LENGTH = 5
-const CAKE_VALUE = 50
-
-const CANVAS_COLOUR = 'rgb(44, 40, 40)'
-const SNAKE_COLOUR = 'rgb(33, 152, 151)'
-//const CAKE_COLOUR = 'rgb(204, 153, 195)'
-
-const CONTEXT = CANVAS.getContext('2d')
-const IMAGE_CAKE = new Image()
-const IMAGE_SUPER_CAKE = new Image()
-const IMAGE_SNAKE = new Image()
-IMAGE_CAKE.src = "./assets/cake.png"
-IMAGE_SUPER_CAKE.src = "./assets/supercake.png"
-IMAGE_SNAKE.src = "./assets/snakeheads/snakehead_up.png"
-const IMAGE_CAKE_SIZE = 256
-const IMAGE_SUPER_CAKE_SIZE = 512
-const IMAGE_SNAKE_SIZE = 800
-
 /* GLOBALS */
 // tile sizing
 let tileCountY = 0
@@ -28,7 +9,7 @@ let score = 0
 let isGameOver = false
 let isGameStarted = false
 let isGamePaused = false
-let isModal = false
+let modalState = 0
 let interval = false
 
 // snake
@@ -51,8 +32,6 @@ let cakeY = 0
 let isSuperCake = false
 let superCakeX = 0
 let superCakeY = 0
-
-document.addEventListener('keydown', handleControls);
 
 /* INIT */
 function initGame() {
@@ -227,68 +206,8 @@ function gameOver() {
     })
 }
 
-function handleControls(evt) {
-    // first arrow keys starts game
-    if (!isGameStarted && [37, 38, 39, 40].includes(evt.keyCode)) isGameStarted = true
-
-    switch (evt.keyCode) {
-        case 13: handleEnterKey(); break
-        case 27: handleEscKey(); break
-        case 32: handleSpaceKey(); break
-        case 37: // left key
-            if (!isModal) {
-                if (move(-1, 0)) IMAGE_SNAKE.src = "./assets/snakeheads/snakehead_left.png"
-            }
-            break
-        case 38: // up key
-            if (!isModal) {
-                if (move(0, -1)) IMAGE_SNAKE.src = "./assets/snakeheads/snakehead_up.png"
-            }
-            break
-        case 39: // right key
-            if (!isModal) {
-                if (move(1, 0)) IMAGE_SNAKE.src = "./assets/snakeheads/snakehead_right.png"
-            }
-            break
-        case 40: // down key
-            if (!isModal) {
-                if (move(0, 1)) IMAGE_SNAKE.src = "./assets/snakeheads/snakehead_down.png"
-            }
-            break
-        case 72: handleHKey(); break
-        case 76: handleLKey(); break
-    }
-}
-
-function handleEnterKey() {
-    if (isModal === 'form') {
-        const value = document.querySelector('#highscore-form input[name="name"]').value
-        if (value) insert(score, value)
-        else alert('Insert name!')
-    }
-}
-
-function handleEscKey() {
-    if (isModal === 'help') hideHelp()
-    else if (isModal === 'form') hideForm()
-    else if (isModal === 'highscores') hideHighscores()
-    else restart()
-}
-
-function handleSpaceKey() {
-    if (!isModal) {
-        isGameOver ? restart() : togglePause();
-    }
-}
-
-function handleHKey() {
-    if (!isModal) showHelp()
-    else if (isModal === 'help') hideHelp()
-}
-
-function handleLKey() {
-    if (!isModal) showHighscores()
-    else if (isModal === 'highscores') hideHighscores()
+function setSnakeHeadImage(direction) {
+    IMAGE_SNAKE.src = SNAKE_HEAD_PATH + direction + ".png"
 }
 
 function updateScore(multiply) {

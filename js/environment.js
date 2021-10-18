@@ -32,38 +32,38 @@ function toggleElements(elements, state) {
 function showHelp() {
     if (!isGamePaused) togglePause()
     toggleElements([overlay, modal, help], 'block')
-    isModal = 'help'
+    modalState = 2
     confirmHelpBtn.addEventListener('click', helpButtonClick, false)
 }
 
 function hideHelp() {
     localStorage.helpShown = true
     toggleElements([overlay, modal, help], 'none')
-    isModal = false
+    modalState = 0
     confirmHelpBtn.removeEventListener('click', helpButtonClick, false)
 }
 
 function showForm() {
     toggleElements([overlay, modal, form], 'block')
-    isModal = 'form'
+    modalState = 1
     insertHighscoreBtn.addEventListener('click', insertHighscore, false)
 }
 
 function hideForm() {
     toggleElements([overlay, modal, form], 'none')
-    isModal = false
+    modalState = 0
     insertHighscoreBtn.removeEventListener('click', insertHighscore, false)
 }
 
 function showHighscores() {
     if (!isGamePaused) togglePause()
-    isModal = 'highscores'
+    modalState = 3
     getHighscores(displayHighscore)
 }
 
 function hideHighscores() {
     toggleElements([overlay, modal, highscore], 'none')
-    isModal = false
+    modalState = 0
     confirmHighscoresBtn.removeEventListener('click', highscoreButtonClick, false)
 }
 
@@ -104,7 +104,7 @@ function insert(score, name) {
 
     localStorage.setItem('highscores', JSON.stringify(highscores));
     hideForm();
-    isModal = 'highscores';
+    modalState = 3;
     displayHighscore();
 }
 
@@ -114,4 +114,10 @@ function sortHighscores() {
         if (a.score > b.score) return -1
         return 0;
     });
+}
+
+function sendName() {
+    const value = document.querySelector('#highscore-form input[name="name"]').value;
+    if (value) insert(score, value);
+    else alert('Insert name!');
 }
