@@ -55,7 +55,8 @@
     </main>
     <script src="js/resize.js"></script>
     <script src="js/snake.js"></script>
-    <script src="js/environment.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/highscores.js"></script>
     <script src="js/controls.js"></script>
     <script src="js/constants.js"></script>
     <script type="text/javascript">
@@ -63,7 +64,7 @@
             resize();
             initGame();
             getHighscores();
-            if (!localStorage.helpShown) showHelp();
+            if (!localStorage.helpShown) toggleHelp(true);
         }
         window.onresize = resize;
     </script>

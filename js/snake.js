@@ -200,9 +200,9 @@ function gameOver() {
             tmp = score.score
             if (tmp < min) min = tmp
         }
-        if (highscores.length < 10) showForm()
-        else if (score > min) showForm()
-        else showHighscores()
+        if (highscores.length < 10) toggleForm(true)
+        else if (score > min) toggleForm(true)
+        else toggleHighscores(true)
     })
 }
 

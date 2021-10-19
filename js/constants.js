@@ -30,14 +30,14 @@ const KEY_MAPS = {
     13: { // enter
         0: blockInput,
         1: sendName,
-        2: hideHelp,
-        3: hideHighscores,
+        2: toggleHelp.bind(this, false),
+        3: toggleHighscores.bind(this, false)
     },
     27: { // esc
         0: restart,
-        1: hideForm,
-        2: hideHelp,
-        3: hideHighscores
+        1: toggleForm.bind(this, false),
+        2: toggleHelp.bind(this, false),
+        3: toggleHighscores.bind(this, false)
     },
     32: { // space
         0: function () { isGameOver ? restart() : togglePause(); },
@@ -46,16 +46,16 @@ const KEY_MAPS = {
         3: blockInput,
     },
     72: { // H
-        0: showHelp,
+        0: toggleHelp.bind(this, true),
         1: blockInput,
-        2: hideHelp,
+        2: toggleHelp.bind(this, false),
         3: blockInput
     },
     76: { // L
-        0: showHighscores,
+        0: toggleHighscores.bind(this, true),
         1: blockInput,
         2: blockInput,
-        3: hideHighscores
+        3: toggleHighscores.bind(this, false)
     },
     37: { // Arrow left
         0: function () { if (move(-1, 0)) setSnakeHeadImage('left'); },
