@@ -98,8 +98,7 @@ function updateSnake() {
     let ix = 0;
     for (var i = 0; i < snake.length; i++) {
 
-        if (ix === snake.length - 1) drawImage(IMAGE_SNAKE, IMAGE_SNAKE_SIZE, snake[i].x, snake[i].y) // draw head of snake
-        else CONTEXT.fillRect(snake[i].x * tileSize, snake[i].y * tileSize, tileSize - 2, tileSize - 2);
+        CONTEXT.fillRect(snake[i].x * tileSize, snake[i].y * tileSize, tileSize - 2, tileSize - 2);
 
         // check snake hit
         if (snake[i].x == snakeHeadX && snake[i].y == snakeHeadY && isGameStarted) gameOver();
@@ -176,8 +175,12 @@ function drawBackground() {
 }
 
 function drawCakes() {
-    drawImage(IMAGE_CAKE, IMAGE_CAKE_SIZE, cakeX, cakeY)
-    if (isSuperCake) drawImage(IMAGE_SUPER_CAKE, IMAGE_SUPER_CAKE_SIZE, superCakeX, superCakeY) // draw super cake
+    CONTEXT.fillStyle = CAKE_COLOUR;
+    CONTEXT.fillRect(cakeX * tileSize, cakeY * tileSize, tileSize - 2, tileSize - 2)
+    if (isSuperCake) {
+        CONTEXT.fillStyle = SUPERCAKE_COLOUR;
+        CONTEXT.fillRect(superCakeX * tileSize, superCakeY * tileSize, tileSize - 2, tileSize - 2)
+    }
 }
 
 function drawImage(image, size, x, y) {
@@ -204,10 +207,6 @@ function gameOver() {
         else if (score > min) toggleForm(true)
         else toggleHighscores(true)
     })
-}
-
-function setSnakeHeadImage(direction) {
-    IMAGE_SNAKE.src = SNAKE_HEAD_PATH + direction + ".png"
 }
 
 function updateScore(multiply) {

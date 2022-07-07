@@ -3,18 +3,10 @@ const CAKE_VALUE = 50
 
 const CANVAS_COLOUR = 'rgb(44, 40, 40)'
 const SNAKE_COLOUR = 'rgb(33, 152, 151)'
+const CAKE_COLOUR = 'rgb(255, 217, 92)'
+const SUPERCAKE_COLOUR = 'rgb(250, 97, 227)'
 
 const CONTEXT = CANVAS.getContext('2d')
-const IMAGE_CAKE = new Image()
-const IMAGE_SUPER_CAKE = new Image()
-const IMAGE_SNAKE = new Image()
-IMAGE_CAKE.src = "./assets/cake.png"
-IMAGE_SUPER_CAKE.src = "./assets/supercake.png"
-IMAGE_SNAKE.src = "./assets/snakeheads/snakehead_up.png"
-const SNAKE_HEAD_PATH = "./assets/snakeheads/snakehead_"
-const IMAGE_CAKE_SIZE = 256
-const IMAGE_SUPER_CAKE_SIZE = 512
-const IMAGE_SNAKE_SIZE = 800
 
 const modalMap = [
     'none',
@@ -58,25 +50,25 @@ const KEY_MAPS = {
         3: toggleHighscores.bind(this, false)
     },
     37: { // Arrow left
-        0: function () { if (move(-1, 0)) setSnakeHeadImage('left'); },
+        0: function () { move(-1, 0) },
         1: blockInput,
         2: blockInput,
         3: blockInput
     },
     38: { // Arrow up
-        0: function () { if (move(0, -1)) setSnakeHeadImage('up'); },
+        0: function () { move(0, -1) },
         1: blockInput,
         2: blockInput,
         3: blockInput
     },
     39: { // Arrow right
-        0: function () { if (move(1, 0)) setSnakeHeadImage('right'); },
+        0: function () { move(1, 0) },
         1: blockInput,
         2: blockInput,
         3: blockInput
     },
     40: { // Arrow down
-        0: function () { if (move(0, 1)) setSnakeHeadImage('down'); },
+        0: function () { move(0, 1) },
         1: blockInput,
         2: blockInput,
         3: blockInput
